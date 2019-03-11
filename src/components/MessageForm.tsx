@@ -1,9 +1,7 @@
 import React from "react";
+import { IMessage } from "./types";
 
-interface IState {
-  message: string;
-  author?: string;
-}
+interface IState extends IMessage {}
 
 class MessageForm extends React.Component<{}, IState> {
   state: IState = {
@@ -11,14 +9,15 @@ class MessageForm extends React.Component<{}, IState> {
     author: ""
   };
 
-  handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  handleChange = (e: React.FormEvent<EventTarget>) => {
     const { name, value }: any = e.target;
     this.setState({
       [name]: value
     } as Pick<IState, keyof IState>);
   };
 
-  handleClick = () => {
+  handleSubmit = (e: React.FormEvent<EventTarget>) => {
+    e.preventDefault();
     console.log(this.state);
   };
 
@@ -29,13 +28,23 @@ class MessageForm extends React.Component<{}, IState> {
         <h1>Message Form</h1>
         <div>
           <label>Message: </label>
-          <input type="text" name="message" value={message} />
+          <input
+            type="text"
+            name="message"
+            value={message}
+            onChange={this.handleChange}
+          />
         </div>
         <div>
           <label>Author: </label>
-          <input type="text" name="author" value={author} />
+          <input
+            type="text"
+            name="author"
+            value={author}
+            onChange={this.handleChange}
+          />
         </div>
-        <button onClick={this.handleClick}>Submit</button>
+        <button onClick={this.handleSubmit}>Submit</button>
       </form>
     );
   }

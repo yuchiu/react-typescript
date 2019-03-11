@@ -1,9 +1,5 @@
 import React from "react";
-
-interface IMessage {
-  message: string;
-  author?: string;
-}
+import { IMessage } from "./types";
 
 interface IProps {
   messageList: IMessage[];
