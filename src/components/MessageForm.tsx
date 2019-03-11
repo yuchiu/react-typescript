@@ -1,9 +1,13 @@
 import React from "react";
-import { IMessage } from "./types";
+import { IMessage } from "../common/types";
+
+interface IProps {
+  handleAddMessage: Function;
+}
 
 interface IState extends IMessage {}
 
-class MessageForm extends React.Component<{}, IState> {
+class MessageForm extends React.Component<IProps, IState> {
   state: IState = {
     message: "",
     author: ""
@@ -18,7 +22,15 @@ class MessageForm extends React.Component<{}, IState> {
 
   handleSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    console.log(this.state);
+    const { handleAddMessage } = this.props;
+    const { message } = this.state;
+    if (message) {
+      handleAddMessage(this.state);
+      this.setState({
+        message: "",
+        author: ""
+      });
+    }
   };
 
   public render() {

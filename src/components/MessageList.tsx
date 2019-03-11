@@ -1,17 +1,16 @@
 import React from "react";
-import { IMessage } from "./types";
+import { IMessageList } from "../common/types";
 
-interface IProps {
-  messageList: IMessage[];
-}
+interface IProps extends IMessageList {}
 
 const MessageList: React.FunctionComponent<IProps> = ({ messageList = [] }) => (
   <ul>
     <h1>Message List</h1>
     {messageList.map((messageItem, i) => (
       <li key={`message-item-${i}`}>
-        <span>{messageItem.message}</span>
-        <span>{messageItem.author}</span>
+        <span>message: {messageItem.message}</span>
+        <br />
+        <span>author: {messageItem.author}</span>
       </li>
     ))}
   </ul>
